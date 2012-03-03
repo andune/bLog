@@ -1,58 +1,59 @@
 package com.beecub.bLog;
 
 import java.io.File;
-import java.util.LinkedList;
-import java.util.List;
-import org.bukkit.util.config.Configuration;
+import java.util.HashSet;
+import java.util.Set;
+
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.FileConfiguration;
 
 public class bConfigManager {
 	
 	protected static bLog bLog;
-    protected static Configuration conf;
-    protected File confFile;
+    protected static FileConfiguration conf;
+//    protected File confFile;
     
-    static List<String> toChat = new LinkedList<String>();
-    static List<String> noCommand = new LinkedList<String>(); 
+    static Set<String> toChat = new HashSet<String>();
+    static Set<String> noCommand = new HashSet<String>(); 
+    static boolean logHtml = true;
 	
 	@SuppressWarnings("static-access")
 	public bConfigManager(bLog bLog) {
     	this.bLog = bLog;
 
-    	File f = new File(bLog.getDataFolder(), "config.yml");
-    	conf = null;
-
-        if (f.exists())
-        {
-        	conf = new Configuration(f);
-        	conf.load();
-        }
-        else {
-        	this.confFile = new File(bLog.getDataFolder(), "config.yml");
-            this.conf = new Configuration(confFile);
-            conf.save();
-        }
+    	load();
         new File(bLog.getDataFolder() + "/ChatLog/").mkdir();
         new File(bLog.getDataFolder() + "/CommandLog/").mkdir();
     }    
     
 	private static void load() {
-    	conf.load();
-    	toChat();
-    	noCommand();
+		conf = bLog.getConfig();
+		reloadConfigElements();
     }
 	
 	public static void reload() {
-		load();
+		bLog.reloadConfig();
+		reloadConfigElements();
+	}
+	
+	private static void reloadConfigElements() {
+    	toChat();
+    	noCommand();
+    	logHtml = conf.getBoolean("logHtml", true);
 	}
 	
 	private static void toChat() {
-		toChat.clear();
-		toChat = conf.getStringList("toChat.", toChat);
+//		toChat.clear();
+//		toChat = conf.getStringList("toChat.", toChat);
+		ConfigurationSection cs = conf.getConfigurationSection("toChat");
+		toChat = cs.getKeys(false);
 	}
 	
 	private static void noCommand() {
-		noCommand.clear();
-		noCommand = conf.getStringList("noCommand.", noCommand);
+//		noCommand.clear();
+//		noCommand = conf.getStringList("noCommand.", noCommand);
+		ConfigurationSection cs = conf.getConfigurationSection("noCommand");
+		noCommand = cs.getKeys(false);
 	}
 	
 	public static boolean isToChat(String message) {
@@ -67,5 +68,9 @@ public class bConfigManager {
 			return true;
 		}
 		return false;
+	}
+	
+	public static boolean isHtmlLogEnabled() {
+		return logHtml;
 	}
 }

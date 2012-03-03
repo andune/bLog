@@ -1,23 +1,18 @@
 package com.beecub.bLog;
 
-import org.bukkit.event.Event;
-import org.bukkit.event.Event.Priority;
-import org.bukkit.plugin.PluginDescriptionFile;
-import org.bukkit.plugin.PluginManager;
-import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.util.config.Configuration;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Logger;
+
+import org.bukkit.plugin.PluginDescriptionFile;
+import org.bukkit.plugin.java.JavaPlugin;
 
 
 public class bLog extends JavaPlugin {
 	private final bLogPlayerListener playerListener = new bLogPlayerListener(this);
 	public Logger log = Logger.getLogger("Minecraft");
 	public static PluginDescriptionFile pdfFile;
-	public static Configuration conf;
 	public static String path;
 	public static String date;
 
@@ -28,9 +23,7 @@ public class bLog extends JavaPlugin {
 		date = getDateTime();
 		pdfFile = this.getDescription();
 		
-		PluginManager pm = getServer().getPluginManager();
-		pm.registerEvent(Event.Type.PLAYER_COMMAND_PREPROCESS, playerListener, Priority.Low, this);
-		pm.registerEvent(Event.Type.PLAYER_CHAT, playerListener, Priority.Low, this);
+		getServer().getPluginManager().registerEvents(playerListener, this);
 		
 		PluginDescriptionFile pdfFile = this.getDescription();
 		log.info("[" +  pdfFile.getName() + "]" + " version " + pdfFile.getVersion() + " is enabled!" );

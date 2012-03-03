@@ -1,7 +1,7 @@
 name: bLog
 main: com.beecub.bLog.bLog
-version: 1.1.0
-author: beecub
+version: 1.2.0
+author: beecub,morganm
 description: >
              Logger
 commands:
