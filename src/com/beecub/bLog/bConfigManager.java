@@ -1,10 +1,9 @@
 package com.beecub.bLog;
 
 import java.io.File;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 
 public class bConfigManager {
@@ -13,8 +12,8 @@ public class bConfigManager {
     protected static FileConfiguration conf;
 //    protected File confFile;
     
-    static Set<String> toChat = new HashSet<String>();
-    static Set<String> noCommand = new HashSet<String>(); 
+    static List<String> toChat = new ArrayList<String>();
+    static List<String> noCommand = new ArrayList<String>(); 
     static boolean logHtml = true;
 	
 	@SuppressWarnings("static-access")
@@ -45,15 +44,13 @@ public class bConfigManager {
 	private static void toChat() {
 //		toChat.clear();
 //		toChat = conf.getStringList("toChat.", toChat);
-		ConfigurationSection cs = conf.getConfigurationSection("toChat");
-		toChat = cs.getKeys(false);
+		toChat = conf.getStringList("toChat");
 	}
 	
 	private static void noCommand() {
 //		noCommand.clear();
 //		noCommand = conf.getStringList("noCommand.", noCommand);
-		ConfigurationSection cs = conf.getConfigurationSection("noCommand");
-		noCommand = cs.getKeys(false);
+		noCommand = conf.getStringList("noCommand");
 	}
 	
 	public static boolean isToChat(String message) {
