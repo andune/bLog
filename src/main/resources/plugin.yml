@@ -1,6 +1,7 @@
-name: bLog
+name: ${project.name}
 main: com.beecub.bLog.bLog
-version: 1.2.0
+url: ${project.url}
+version: ${project.version}
 author: beecub,morganm
 description: >
              Logger
