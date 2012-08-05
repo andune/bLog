@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.beecub.bLog</groupId>
   <artifactId>bLog</artifactId>
-  <version>1.3-SNAPSHOT</version>
+  <version>1.2.1</version>
   <name>bLog</name>
   <description>bLog logs player chat and commands on Bukkit to a logfile</description>
   <url>http://forums.bukkit.org/threads/admn-blog-1-1-0-chat-and-command-log-separate-logging-803.11263/</url>
@@ -28,7 +28,7 @@
     <dependency>
       <groupId>org.bukkit</groupId>
       <artifactId>bukkit</artifactId>
-      <version>1.2.5-R4.0</version>
+      <version>1.3.1-R0.1-SNAPSHOT</version>
     </dependency>
   </dependencies>
 
